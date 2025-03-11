@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 export default function TopicTimer() {
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState<{ name: string; duration: number; actualTime: number }[]>([]);
   const [currentTopicIndex, setCurrentTopicIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [running, setRunning] = useState(false);
@@ -11,14 +11,15 @@ export default function TopicTimer() {
   const [duration, setDuration] = useState("");
 
   const addTopic = () => {
-    if (topicName.trim() !== "" && duration > 0) {
+    if (topicName.trim() !== "" && parseFloat(duration) > 0) {
       setTopics([...topics, { name: topicName, duration: parseFloat(duration), actualTime: 0 }]);
       setTopicName("");
       setDuration("");
     }
   };
 
-  const deleteTopic = (index) => {
+  const deleteTopic = (index: number) => {
+
     setTopics(topics.filter((_, i) => i !== index));
   };
 
